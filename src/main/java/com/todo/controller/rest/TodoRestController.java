@@ -1,5 +1,6 @@
 package com.todo.controller.rest;
 
+import com.todo.aop.LogExecutionTime;
 import com.todo.model.dto.UserTodoDto;
 import com.todo.model.entity.Todo;
 import com.todo.model.entity.User;
@@ -22,6 +23,7 @@ public class TodoRestController {
         this.userService = userService;
     }
 
+    @LogExecutionTime
     @PostMapping("/create-todo")
     public void createTodo(@RequestBody Todo todo, Principal principal) {
         User user = userService.getUserByUsername(principal.getName());
@@ -29,6 +31,7 @@ public class TodoRestController {
         todoService.saveTodo(todo);
     }
 
+    @LogExecutionTime
     @PutMapping("/edit-todo/{id}")
     public void editTodo(@RequestBody Todo todo, @PathVariable("id") Long id) {
         Todo editTodo = todoService.getTodoById(id);
@@ -36,16 +39,19 @@ public class TodoRestController {
         todoService.updateTodo(editTodo);
     }
 
+    @LogExecutionTime
     @GetMapping("/get-my-active-todo")
     public List<UserTodoDto> getMyActiveTodo(Principal principal) {
         return todoService.getUserTodoDtoByUsernameAndActive(false, principal.getName());
     }
 
+    @LogExecutionTime
     @GetMapping("/get-my-not-active-todo")
     public List<UserTodoDto> getMyNotActiveTodo(Principal principal) {
         return todoService.getUserTodoDtoByUsernameAndActive(true, principal.getName());
     }
 
+    @LogExecutionTime
     @PutMapping("/set-active/{id}")
     public void setActiveTodo(@PathVariable Long id) {
         Todo todo = todoService.getTodoById(id);
@@ -53,6 +59,7 @@ public class TodoRestController {
         todoService.updateTodo(todo);
     }
 
+    @LogExecutionTime
     @PutMapping("/set-not-active/{id}")
     public void setNotActiveTodo(@PathVariable Long id) {
         Todo todo = todoService.getTodoById(id);
@@ -60,6 +67,7 @@ public class TodoRestController {
         todoService.updateTodo(todo);
     }
 
+    @LogExecutionTime
     @DeleteMapping("/delete/{id}")
     public void deleteTodo(@PathVariable Long id) {
         Todo todo = todoService.getTodoById(id);

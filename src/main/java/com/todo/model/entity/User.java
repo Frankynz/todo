@@ -1,7 +1,5 @@
 package com.todo.model.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -27,6 +25,22 @@ public class User implements UserDetails {
     private Set<Role> roles;
     @OneToMany(mappedBy = "user")
     private Set<Todo> todos;
+
+    public User(String username, String password, Set<Role> roles) {
+        this.username = username;
+        this.password = password;
+        this.roles = roles;
+    }
+
+    public User(String username, String password, String firstName, String lastName) {
+        this.username = username;
+        this.password = password;
+        this.firstName = firstName;
+        this.lastName = lastName;
+    }
+
+    public User() {
+    }
 
     public Long getId() {
         return id;

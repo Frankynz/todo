@@ -1,7 +1,5 @@
 package com.todo.model.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
 
 import javax.persistence.*;
